@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
 
-import 'screens/home.dart';
+import 'screens/home_page.dart';
+import 'widgets/app_theme.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final _theme = ThemeNotifier();
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorSchemeSeed: Colors.greenAccent,
-        useMaterial3: true,
+    return ThemeProvider(
+      notifier: _theme,
+      child: Builder(
+        builder: (context) {
+          final theme = ThemeProvider.of(context);
+          return MaterialApp(
+            theme: ThemeData(
+              brightness: theme.isDark ? Brightness.dark : Brightness.light,
+              colorSchemeSeed: Colors.blueGrey,
+              useMaterial3: true,
+            ),
+            debugShowCheckedModeBanner: false,
+            home: const HomePage(),
+          );
+        },
       ),
-      home: const Home(),
     );
   }
 }

@@ -3,14 +3,14 @@ import 'item.dart';
 
 class Produto {
   final Item item;
-  Promocao promocao = SemDesconto();
-  final double _preco;
-  double get preco => promocao.calcular(_preco);
-  double get precoBase => _preco;
+  final double valor;
+  double get preco => promocao.calcular(valor);
+
+  Promocao promocao;
 
   Produto({
     required this.item,
-    required double preco,
-    Promocao? promocao,
-  }) : _preco = preco, promocao = promocao ?? SemDesconto() ;
+    required this.valor,
+    this.promocao = const SemDesconto(),
+  });
 }
